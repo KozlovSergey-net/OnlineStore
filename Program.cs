@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAuthBL, AuthBL>();
+builder.Services.AddSingleton<ICryptoKey, CryptoKey>();
 builder.Services.AddSingleton<IAuthDal, AuthDal>();
 
 var app = builder.Build();
