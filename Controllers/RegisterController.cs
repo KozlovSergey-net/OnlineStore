@@ -21,11 +21,11 @@ namespace OnlineStore.Controllers
 
         [HttpPost]
         [Route("/register")]
-        public IActionResult IndexSave(RegisterViewModel model)
+        public async Task<IActionResult> IndexSave(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                authBL.CreateUser(Mapp.AuthMapper.MapRegisterViewModelToUserModel(model));
+                await authBL.CreateUser(Mapp.AuthMapper.MapRegisterViewModelToUserModel(model));
                 return Redirect("/");
             }
 

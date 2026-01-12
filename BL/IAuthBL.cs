@@ -1,4 +1,5 @@
-﻿using OnlineStore.DAL.Models;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using OnlineStore.DAL.Models;
 
 namespace OnlineStore.BL
 {
@@ -6,5 +7,6 @@ namespace OnlineStore.BL
     {
         Task<int> CreateUser(DAL.Models.UserModel user);
         Task<UserModel> GetUser(UserModel user);
+        
     }
 }
