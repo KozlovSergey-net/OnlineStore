@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace OnlineStore.Models
 {
-    public class RegisterViewModel
+    public class AuthViewModel
     {
         [Required(ErrorMessage = "Email обязателен")]
         [EmailAddress(ErrorMessage = "Некорректный формат")]
@@ -14,8 +13,7 @@ namespace OnlineStore.Models
             $"хотя бы одну нижнюю английскую букву, " +
             $"хотя бы одну цифру, " +
             $"хотя бы один специальный символ.")]
-
-
         public string? Password { get; set; }
+        bool RememberMe { get; set; }
     }
 }

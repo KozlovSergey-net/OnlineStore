@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using OnlineStore.DAL;
 using OnlineStore.DAL.Models;
 
@@ -24,15 +25,31 @@ namespace OnlineStore.BL
             return id;
         }
 
-        public async Task<UserModel> GetUser(UserModel user)
+        public async Task<int> GetUser(string Email, string Password)
         {
           
-            return await authDal.GetUser(user.Email); ;
+            var user =  await authDal.GetUser(Email);
+            if (user.Password == cryptoKey.HashPassword(Password, user.Salt)){
+                Login(user.UserId ?? 0);
+                return user.UserId ?? 0;
+            }
+            return 0;
         }
 
         public async Task Login(int id)
         {
             httpContexAccessor.HttpContext?.Session.SetInt32(AuthConst.AUTH_SESSION_PARAM_NAME, id);
+        }
+
+        public async Task<ValidationResult> ValidEmail(string Email)
+        {
+            var user = await authDal.GetUser(Email);
+            if(user.UserId != null)
+            {
+                return new ValidationResult("Email уже существует");
+            }
+            return null;
+
         }
     }
 }

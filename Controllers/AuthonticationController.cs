@@ -15,16 +15,16 @@ namespace OnlineStore.Controllers
         [Route("/authontication")]
         public IActionResult Index()
         {
-            return View("Index", new RegisterViewModel());
+            return View("Index", new AuthViewModel());
         }
 
         [HttpPost]
         [Route("/authontication")]
-        public IActionResult IndexSave(RegisterViewModel model)
+        public async Task<IActionResult> IndexSave(AuthViewModel model)
         {
             if (ModelState.IsValid)
             {
-                authBL.GetUser(Mapp.AuthMapper.MapRegisterViewModelToUserModel(model));
+                await authBL.GetUser(model.Email!, model.Password!);
                 return Redirect("/");
             }
 

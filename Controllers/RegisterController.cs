@@ -25,6 +25,14 @@ namespace OnlineStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                var errorModel = await authBL.ValidEmail(model.Email ?? "");
+                if (errorModel != null)
+                {
+                    ModelState.TryAddModelError("Email", errorModel.ErrorMessage!);
+                }
+            }
+            if (ModelState.IsValid)
+            {
                 await authBL.CreateUser(Mapp.AuthMapper.MapRegisterViewModelToUserModel(model));
                 return Redirect("/");
             }
